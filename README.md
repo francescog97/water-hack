@@ -40,6 +40,7 @@ The header language selector offers **English, Italiano, Русский and Бъ
 - [Aliaksei's review checklist](docs/LEGAL_REVIEW_CHECKLIST.md)
 - [Differentiation and value hypotheses](docs/DIFFERENTIATION.md)
 - [Pitch outline](docs/PITCH_OUTLINE.md)
+- [Pitch orale in italiano](docs/PITCH_ITALIANO.md)
 - [Implementation progress](docs/PROGRESS.md)
 - [Validation and acceptance evidence](docs/VALIDATION.md)
 - [Private sharing with Cloudflare: verified account and setup options](docs/CLOUDFLARE_SHARING.md)
