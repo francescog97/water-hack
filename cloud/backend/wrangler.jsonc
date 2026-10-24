@@ -1,0 +1,30 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "crisis2action-api",
+  "account_id": "b58b919c2f318c56b4634925d3f84ca9",
+  "main": "generated/entry.py",
+  "compatibility_date": "2026-10-24",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+  "workers_dev": false,
+  "preview_urls": false,
+  "find_additional_modules": true,
+  "vars": {
+    "DEPLOYMENT_MODE": "private-cloud-backend",
+    "PUBLIC_ORIGIN": "https://crisis2action.spunto-speak.workers.dev",
+    "ALLOWED_EMAILS": "francescogabrielg@gmail.com,517357835k@gmail.com"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "crisis2action-db",
+      "database_id": "c431c02e-a352-44f0-b936-4e353baf0aeb",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

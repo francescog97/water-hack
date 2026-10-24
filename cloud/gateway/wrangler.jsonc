@@ -1,0 +1,33 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "crisis2action",
+  "account_id": "b58b919c2f318c56b4634925d3f84ca9",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-24",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "directory": "../../app/frontend/dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "services": [
+    {
+      "binding": "BACKEND",
+      "service": "crisis2action-api"
+    }
+  ],
+  "vars": {
+    "PUBLIC_ORIGIN": "https://crisis2action.spunto-speak.workers.dev",
+    "ALLOWED_EMAILS": "francescogabrielg@gmail.com,517357835k@gmail.com",
+    "ACCESS_TEAM_DOMAIN": "steep-unit-4806.cloudflareaccess.com",
+    "ACCESS_AUD": "c7b69a28d434b9df90a38033af6b6cafaf1a210ac4fb634a0ab6161f484ace42"
+  },
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1
+  }
+}

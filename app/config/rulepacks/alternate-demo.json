@@ -1,0 +1,7 @@
+{
+  "id": "alternate-demo", "name": "Alternate · higher demo thresholds", "version": "1.0.0",
+  "parameter": "discharge", "unit": "m3/s", "station_ids": ["iskar-novi", "iskar-orehovitsa"],
+  "thresholds": {"WARNING": 15, "DANGER": 35, "EMERGENCY": 70}, "comparator": ">=",
+  "source_classification": "DEMO_CONFIG", "validity": "Configuration interchangeability test only",
+  "rationale": "Deliberately higher illustrative values. At 25.922 m3/s this pack returns WARNING while iskar-demo returns DANGER. Neither pack describes an official Bulgarian warning regime."
+}

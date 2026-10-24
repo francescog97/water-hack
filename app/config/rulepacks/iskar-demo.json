@@ -1,0 +1,7 @@
+{
+  "id": "iskar-demo", "name": "Iskar · demonstration bands", "version": "1.0.0",
+  "parameter": "discharge", "unit": "m3/s", "station_ids": ["iskar-novi", "iskar-orehovitsa"],
+  "thresholds": {"WARNING": 8, "DANGER": 20, "EMERGENCY": 50}, "comparator": ">=",
+  "source_classification": "DEMO_CONFIG", "validity": "Historical replay and synthetic demonstration only",
+  "rationale": "Chosen after inspecting Novi Iskar: median 9.42, range 6.925–92.537 m3/s. 8/20/50 enable a visible demo transition. Not calibrated, official, probabilistic, or a statutory trigger; no station-specific operational applicability has been established."
+}

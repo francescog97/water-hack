@@ -1,0 +1,27 @@
+# Original research inputs stay local and are never served by the app.
+Dataset/
+*.pdf
+t1.png
+DeepResearch-prompt.md
+.dataset-work/
+.venv/
+.cache/
+node_modules/
+dist/
+runtime/
+__pycache__/
+.pytest_cache/
+pytest-cache-files-*/
+*.tsbuildinfo
+*.pyc
+.env
+.env.*
+*.log
+test-results/
+playwright-report/
+.wrangler/
+cloud/backend/generated/
+cloud/backend/python_modules/
+cloud/backend/.venv/
+cloud/gateway/worker-configuration.d.ts
+cloud/backend/.venv-workers/

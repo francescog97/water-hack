@@ -1,0 +1,33 @@
+{
+  "name": "crisis2action",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "app/frontend"
+  ],
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "npm run build --workspace app/frontend",
+    "typecheck": "npm run typecheck --workspace app/frontend",
+    "lint": "npm run lint --workspace app/frontend",
+    "test:e2e": "playwright test",
+    "test:backend": "node scripts/python.mjs -m pytest app/backend/tests -q",
+    "audit:data": "node scripts/python.mjs scripts/audit_data.py",
+    "cloud:prepare": "node scripts/python.mjs scripts/prepare_cloud.py",
+    "cloud:types": "wrangler types --config cloud/gateway/wrangler.jsonc cloud/gateway/worker-configuration.d.ts",
+    "cloud:typecheck": "tsc -p cloud/gateway/tsconfig.json",
+    "cloud:test": "node --experimental-strip-types --test tests/cloud/gateway.test.ts",
+    "cloud:migrate": "wrangler d1 migrations apply crisis2action-db --remote --config cloud/backend/wrangler.jsonc",
+    "cloud:deploy:gateway": "wrangler deploy --config cloud/gateway/wrangler.jsonc",
+    "precloud:deploy:backend": "npm run cloud:prepare",
+    "cloud:deploy:backend": "powershell -NoProfile -File scripts/deploy_cloud_backend.ps1",
+    "cloud:smoke:serve": "wrangler dev --config cloud/smoke/wrangler.jsonc --ip 127.0.0.1 --port 8789",
+    "cloud:access:configure": "node scripts/configure_access.mjs"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261024.1",
+    "@playwright/test": "^1.58.2",
+    "jose": "^6.2.13",
+    "wrangler": "^4.152.0"
+  }
+}

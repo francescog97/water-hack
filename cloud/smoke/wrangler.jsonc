@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "crisis2action-local-smoke",
+  "account_id": "b58b919c2f318c56b4634925d3f84ca9",
+  "main": "index.ts",
+  "compatibility_date": "2026-10-24",
+  "workers_dev": false,
+  "preview_urls": false,
+  "assets": {"directory": "../../app/frontend/dist", "binding": "ASSETS", "run_worker_first": true},
+  "services": [{"binding": "BACKEND", "service": "crisis2action-api", "remote": true}],
+  "dev": {"ip": "127.0.0.1", "port": 8789}
+}

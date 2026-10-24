@@ -1,0 +1,22 @@
+export type Band = 'NORMAL'|'WARNING'|'DANGER'|'EMERGENCY'|'UNKNOWN';
+export type View = 'overview'|'scenario'|'response'|'coverage'|'evidence';
+export type Facts = Record<'jurisdiction_confirmed'|'municipal_plan_available'|'formal_disaster_declared'|'basin_authority_confirmed',boolean|null>;
+export interface ScenarioRequest {case_id:string;selected_date:string;rule_pack_id:string;legal_pack_id:string;simulate:boolean;daily_increase:number;steps:number;sensor_offline:boolean;stale:boolean;facts:Facts}
+export interface Station {id:string;name:string;raw_name:string;waterbody:string;country:string;basin:string|null;municipality:string|null;latitude:number|null;longitude:number|null;identity_evidence:string;file:string}
+export interface DataSource {id:string;title:string;path:string;sha256:string;mode:string;unit:string;parameter:string;license:string;origin:string;time_note:string;period:string[]}
+export interface Summary {rows:number;calendar_days:number;missing_days:string[];duplicates:number;minimum:number;maximum:number;median:number}
+export interface CaseSummary {station:Station;source:DataSource;summary:Summary;available:boolean;error?:string}
+export interface LegalSource {source_id:string;source_title:string;publisher:string;official_url:string;language:string;document_type:string;version_or_last_verified:string;retrieved_at:string;effective_date_from:string|null;effective_date_to:string|null;article_or_section:string;paraphrase:string;translation_status:string;review_status:string;reviewer:string|null;scope_note:string}
+export interface Authority {authority_id:string;authority_name:string;jurisdiction_scope:string;role_type:string;legal_source_ids:string[];conditions:string[];confidence_label:string}
+export interface LegalPackage {id:string;name:string;version:string;jurisdiction:string;purpose:string;sources:LegalSource[];authorities:Authority[];procedures:unknown[];legal_rules:unknown[];deliberate_gaps:string[];claims_not_made:string[];content_sha256:string}
+export interface RulePack {id:string;name:string;version:string;parameter:string;unit:string;station_ids:string[];thresholds:Record<'WARNING'|'DANGER'|'EMERGENCY',number>;comparator:string;source_classification:string;validity:string;rationale:string}
+export interface Classification {band:Band;reasons:string[];triggered_threshold:number|null;rule_pack_id:string;rule_version:string;official_designation:boolean}
+export interface TimelinePoint {date:string;value:number|null;quality_flags:string[];source_row:number|null}
+export interface SimPoint {date:string;value:number;step:number;mode:'simulated';band:Band;unit:string}
+export interface Condition {fact:keyof Facts;value:boolean|null;status:'UNKNOWN'|'MET'|'UNMET';evidence:string}
+export interface Procedure {procedure_id:string;title:string;action_type:string;applicable_authority_ids:string[];deadline_type:string;deadline_display:string;dependencies:string[];source_ids:string[];verification_status:string;notes:string;conditions:Condition[];sources:LegalSource[];evaluation:string;prioritized_for_review:boolean;authorized:boolean;legally_required:boolean}
+export interface CoverageCell {field:string;status:string;source_ids:string[];explanation:string}
+export interface Coverage {package_id:string;rows:{band:Band;cells:CoverageCell[]}[];legend:string[];scope:string}
+export interface Evaluation {context_id:string;request:ScenarioRequest;case:{station:Station;source:DataSource;summary:Summary};observation:{value:number|null;date:string;observed_at:string;source_row:number;raw_value:string;mode:string;quality_flags:string[];unit:string}|null;historical_classification:Classification;classification:Classification;effective_mode:'historical'|'simulated';effective_value:number|null;historical_timeline:TimelinePoint[];simulation:SimPoint[];simulation_assumptions:{method:string;daily_increase:number;unit:string;steps:number;precision:string;crossings:{band:Band;date:string;step:number;label:string}[];forecast_available:boolean};rule_pack:RulePack;legal_pack:LegalPackage;response:{package_id:string;authorities:Authority[];cards:Procedure[];legal_designation:string;authorized_actions:unknown[];formal_disaster_declared:boolean|null;expert_review:string;review_tasks:string[];notice:string};coverage:Coverage;warnings:string[];data_state:string}
+export interface Review {id:number;context_id:string;item_id:string;note:string;acknowledged_at:string;review_kind:string;legal_authorization:number}
+export interface Briefing {title:string;markdown:string;warning:string;[key:string]:unknown}

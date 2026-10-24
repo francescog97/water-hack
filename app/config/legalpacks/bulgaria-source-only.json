@@ -1,0 +1,10 @@
+{
+  "id":"bulgaria-source-only", "name":"Bulgaria · institutional references only", "version":"1.0.0",
+  "jurisdiction":"Bulgaria · event jurisdiction unconfirmed",
+  "purpose":"Minimal package to demonstrate coverage changes without code edits. Contains institutional orientation, no procedural mappings.",
+  "sources":[{"source_id":"ec-structure","source_title":"Bulgaria — national disaster management system","publisher":"European Commission, DG ECHO","official_url":"https://civil-protection-humanitarian-aid.ec.europa.eu/what/civil-protection/national-disaster-management-system/bulgaria_en","language":"en","document_type":"guidance","version_or_last_verified":"Retrieved 2026-10-24; underlying currency unconfirmed","retrieved_at":"2026-10-24","effective_date_from":null,"effective_date_to":null,"article_or_section":"Overview: regional and municipal levels","exact_quote":null,"paraphrase":"Institutional overview of regional governors and municipal mayors. Event-specific jurisdiction and procedures remain unverified.","translation_status":"Official English overview","review_status":"SOURCE_LOCATED_UNREVIEWED","reviewer":null,"scope_note":"No statutory power or deadline is asserted."}],
+  "authorities":[{"authority_id":"municipal","authority_name":"Municipal mayor / coordination team","jurisdiction_scope":"Municipality to be confirmed","role_type":"Potential consultation role","legal_source_ids":["ec-structure"],"conditions":["jurisdiction_confirmed"],"confidence_label":"SOURCE_LOCATED_UNREVIEWED"}],
+  "procedures":[], "legal_rules":[],
+  "deliberate_gaps":["No procedural mappings in this minimal package", "No verified deadlines or event-specific powers"],
+  "claims_not_made":["No claim that Bulgarian law is missing", "No automatic legal decisions"]
+}

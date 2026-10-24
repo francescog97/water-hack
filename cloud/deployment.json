@@ -1,0 +1,62 @@
+{
+  "updated_at": "2026-10-24",
+  "account_id": "b58b919c2f318c56b4634925d3f84ca9",
+  "url": "https://crisis2action.spunto-speak.workers.dev",
+  "status": "private_access_active",
+  "gateway": {
+    "name": "crisis2action",
+    "version_id": "6469b6bf-a251-4622-a225-5b47edd6d833",
+    "preview_urls": false,
+    "unauthenticated_response": 302
+  },
+  "backend": {
+    "name": "crisis2action-api",
+    "version_id": "95ab735e-5eca-4b22-bbe0-f7c78bcc91d8",
+    "workers_dev": false,
+    "preview_urls": false
+  },
+  "database": {
+    "name": "crisis2action-db",
+    "id": "c431c02e-a352-44f0-b936-4e353baf0aeb",
+    "migration": "0001_reviews.sql"
+  },
+  "allowed_emails": [
+    "francescogabrielg@gmail.com",
+    "517357835k@gmail.com"
+  ],
+  "access": {
+    "configured": true,
+    "team_domain": "steep-unit-4806.cloudflareaccess.com",
+    "audience": "c7b69a28d434b9df90a38033af6b6cafaf1a210ac4fb634a0ab6161f484ace42",
+    "identifiers_source": "Observed Cloudflare HTTPS login redirect and login page; no credentials extracted.",
+    "policy_configured_by": "user",
+    "policy_emails_user_confirmed": true,
+    "admin_api_limitation": "Wrangler session cannot administer Access; listing apps returns empty despite active protection.",
+    "required_user_action": "No owner login configuration remaining. Colleague individual login confirmation is pending."
+  },
+  "validation": {
+    "backend_tests_passed": 51,
+    "gateway_security_tests_passed": 3,
+    "cloud_backed_browser_tests_passed": 4,
+    "public_login_flow_verified": true,
+    "data_hashes_unchanged": 172,
+    "paid_plan_upgrade_performed": false,
+    "public_access_redirect_verified": true,
+    "login_page_verified": true,
+    "login_verification_method": "Owner confirmed app access works; agent verified redirect/login form without using personal PIN or cookies.",
+    "colleague_login_user_confirmed": false,
+    "frontend_browser_tests_passed": 6,
+    "language_browser_tests_passed": 2
+  },
+  "frontend": {
+    "languages": [
+      "en",
+      "it",
+      "ru",
+      "bg"
+    ],
+    "language_selector": "sticky header; desktop and mobile",
+    "language_preference": "browser localStorage",
+    "source_and_export_language": "original; no verified legal translation implied"
+  }
+}
