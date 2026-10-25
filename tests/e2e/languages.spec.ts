@@ -7,7 +7,7 @@ test.beforeEach(async({context})=>{
 test('four languages are visible, persist, and keep an acknowledged scenario intact',async({page})=>{
  let evaluations=0;
  page.on('request',request=>{if(new URL(request.url()).pathname==='/api/evaluate')evaluations++;});
- await page.goto('/#scenario');
+ await page.goto('/?module=flood#scenario');
  await expect(page.locator('.scenario-comparison')).toContainText('9.922');
  const selector=page.getByTestId('language-select');
  await expect(selector).toBeVisible();
@@ -41,7 +41,7 @@ test('four languages are visible, persist, and keep an acknowledged scenario int
 });
 
 test('localized dates and numbers, original sources, and mobile language control',async({page})=>{
- await page.goto('/?lang=ru#scenario');
+ await page.goto('/?module=flood&lang=ru#scenario');
  await expect(page.getByTestId('language-select')).toHaveValue('ru');
  await expect(page.locator('.scenario-comparison')).toContainText('9,922');
  await page.getByTestId('simulate').click();
