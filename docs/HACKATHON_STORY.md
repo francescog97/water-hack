@@ -77,4 +77,3 @@ The Pilot & Value screen starts comparison fields empty and exports explicitly e
 ## Presentation discipline
 
 Use “demonstrator”, “proposed”, “hypothesis”, “illustrative” and “requires expert review” where appropriate. Distinguish implemented software behaviour from verified national legal content, reviewed scientific inference, real customer research and production readiness. Test results prove specified software behaviour, not market demand, legal correctness or environmental impact.
-
