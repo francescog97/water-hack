@@ -88,7 +88,8 @@ def test_cloud_bundle_matches_original_sources_and_no_private_extras():
     import hashlib
     expected = {"Dataset/portata_iskar_novi_iskar_2025.csv", "Dataset/portata_iskar_orehovitsa_2025.csv"}
     assert {name for name in manifest if name.startswith("Dataset/")} == expected
-    assert len(manifest) == 6
+    assert len(manifest) == 7
+    assert "app/config/incidents/iskar-pollution-demo.json" in manifest
     for name, digest in manifest.items():
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
     assert all(Path(name).suffix in {".json", ".csv"} for name in manifest)

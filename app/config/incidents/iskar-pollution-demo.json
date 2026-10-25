@@ -4,7 +4,7 @@
   "description": "Demonstration suspended-solids anomaly on a schematic short reach around Novi Iskar. All incident measurements, receptors and reach geometry are invented. Prepare a verification plan; the cause and real pollution status remain unconfirmed.",
   "mode": "SIMULATED_DEMONSTRATION",
   "waterbody": {
-    "name": "Iskar River ? illustrative Novi Iskar reach",
+    "name": "Iskar River - illustrative Novi Iskar reach",
     "country": "Bulgaria",
     "reach_id": "DEMO-ISKAR-REACH",
     "geometry_status": "DEMO_SYNTHETIC_SCHEMATIC",
@@ -56,6 +56,26 @@
       "source_classification": "DEMO_SYNTHETIC",
       "impact": "POTENTIAL_EXPOSURE_UNVERIFIED",
       "notes": "Invented receptor; no protected designation or actual impact asserted."
+    },
+    {
+      "id": "demo-settlement",
+      "name": "Illustrative downstream settlement",
+      "type": "settlement",
+      "x": 90,
+      "y": 80,
+      "source_classification": "DEMO_SYNTHETIC",
+      "impact": "POTENTIAL_EXPOSURE_UNVERIFIED",
+      "notes": "Invented settlement marker; no real community, population or exposure asserted."
+    },
+    {
+      "id": "demo-industry",
+      "name": "Illustrative industrial site",
+      "type": "industry",
+      "x": 95,
+      "y": 85,
+      "source_classification": "DEMO_SYNTHETIC",
+      "impact": "POTENTIAL_EXPOSURE_UNVERIFIED",
+      "notes": "Invented site marker; no operator, permit, discharge source or liability identified."
     }
   ],
   "authorities": [
@@ -232,7 +252,7 @@
     },
     {
       "id": "local-cds-context",
-      "title": "Local CDS precipitation geographic cells: 1?3 June 2024",
+      "title": "Local CDS precipitation geographic cells: 1-3 June 2024",
       "url": null,
       "verification": "LOCAL_CONTENT_INSPECTED",
       "caveats": "Product acquisition/licence provenance and temporal aggregation not fully documented; separate historical context, not incident evidence.",

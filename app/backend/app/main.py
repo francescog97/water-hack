@@ -6,6 +6,8 @@ from fastapi.responses import FileResponse, JSONResponse
 
 from .briefing import make_briefing
 from .cloud_store import D1ReviewStore
+from .incident_store import D1IncidentStore
+from .incidents import router as incident_router
 from .ingest import STATIONS, load_case, write_normalized_cache
 from .legal import coverage, load_legalpacks
 from .models import BriefingRequest, ReviewRequest, ScenarioRequest
@@ -33,6 +35,7 @@ async def local_only(request: Request, call_next):
         if not email or email not in str(env.ALLOWED_EMAILS).lower().split(","):
             return JSONResponse({"detail": "Authenticated gateway required"}, status_code=403)
         request.state.review_store = D1ReviewStore(env.DB, email)
+        request.state.incident_store = D1IncidentStore(env.DB, email)
     if host not in allowed_hosts:
         return JSONResponse({"detail": "Local demonstration only"}, status_code=403)
     origin = request.headers.get("origin")
@@ -149,6 +152,8 @@ async def briefing(request: BriefingRequest, http_request: Request):
 
 
 # Only the explicit built frontend directory is served. Research inputs are never a static root.
+app.include_router(incident_router)
+
 DIST = ROOT / "app" / "frontend" / "dist"
 
 

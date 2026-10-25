@@ -1,8 +1,9 @@
 {
-  "Dataset/portata_iskar_orehovitsa_2025.csv": "e71df5f092d93e70bf2c15dab7c0b4d425e710c2bdd504e6936b5388832711ce",
   "Dataset/portata_iskar_novi_iskar_2025.csv": "df49ae83bc4f230cdb6cee3a8e940a2cafa3b735f396d3892a81d81a771d11b1",
+  "Dataset/portata_iskar_orehovitsa_2025.csv": "e71df5f092d93e70bf2c15dab7c0b4d425e710c2bdd504e6936b5388832711ce",
   "app/config/rulepacks/alternate-demo.json": "ace8a3c5b60c7b90e254da7355710bea628dbeccf4e0a2e800c35f34fd0b5380",
   "app/config/rulepacks/iskar-demo.json": "1c343dd3e559207efae4e551abe13bd804aa30530e7f47dbb3a9ea412c7bd438",
   "app/config/legalpacks/bulgaria-flood.json": "611452280d2546bca537db1908de36eba08ec45c8118fb5413fadda1a8b67345",
-  "app/config/legalpacks/bulgaria-source-only.json": "e2e05dc43cae5685f81a2435add202ac9229979c3b1e8ae6ff0f2c8c4b811abe"
+  "app/config/legalpacks/bulgaria-source-only.json": "e2e05dc43cae5685f81a2435add202ac9229979c3b1e8ae6ff0f2c8c4b811abe",
+  "app/config/incidents/iskar-pollution-demo.json": "23719497cc6317775cbb706574009710cc6b0118d742337d47d9d1dd2c74fbc8"
 }

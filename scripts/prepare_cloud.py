@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "cloud/backend/generated"
-BACKEND_MODULES = ["__init__", "briefing", "cloud_store", "ingest", "legal", "main", "models", "paths", "review", "rules", "scenario"]
+BACKEND_MODULES = ["__init__", "briefing", "cloud_store", "incident_store", "incidents", "ingest", "legal", "main", "models", "paths", "review", "rules", "scenario"]
 
 
 def prepare():
@@ -15,7 +15,7 @@ def prepare():
         path = ROOT / "Dataset" / filename
         # Keep source bytes exactly, including any BOM; provenance hashes must match.
         files[f"Dataset/{filename}"] = path.read_bytes().decode("utf-8")
-    for kind in ["rulepacks", "legalpacks"]:
+    for kind in ["rulepacks", "legalpacks", "incidents"]:
         for path in sorted((ROOT / "app/config" / kind).glob("*.json")):
             files[f"app/config/{kind}/{path.name}"] = path.read_bytes().decode("utf-8")
     OUTPUT.mkdir(parents=True, exist_ok=True)
