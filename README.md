@@ -6,11 +6,15 @@ Consultare il [catalogo del dataset](Dataset/README.md) per contenuti, periodi, 
 
 I nomi dei file sono in italiano, con traslitterazione dei nomi propri. I contenuti originali sono invariati. Il [registro delle rinomine](Dataset/registro_rinomine.csv) conserva i percorsi originali, quelli attuali e gli hash SHA-256 per tracciabilità.
 
-## Crisis2Action MVP
+## Water Crisis Decision Navigator
 
-Local, offline-capable decision preparation and procedural traceability for a historical Bulgarian Iskar discharge scenario. Five views: Crisis Monitor, Scenario Lab, Response Navigator, Coverage Matrix, Legal Package & Evidence.
+The default application prepares a documented response to **suspected river pollution in Bulgaria**, following Aliaksei's supplied report. Crisis2Action remains the technical and legacy name. Five views connect **Observation & evidence → Potential receptors → Institutions & legal checks → Action plan & history → Pilot & value**.
 
-**DEMONSTRATION — NOT FOR OPERATIONAL USE.** Real historical values, synthetic what-if trajectories, demo thresholds and unreviewed legal interpretations are explicitly separated. No live feed, calibrated forecast, official crisis designation, dispatch or infrastructure control is implemented.
+**DEMONSTRATION — NOT FOR OPERATIONAL USE.** The Iskar exercise uses invented suspended-solids samples: 8 → 96 mg/L (12×), with a configured demonstration trigger of 30 mg/L (`>=`). Reach geometry and every receptor are synthetic. No laboratory report, real pollution confirmation, contaminant identification, statutory limit or official authorization is established. The 9,657 anonymous historical TSS rows and the 2024 CDS geographic context remain separate and are not joined to the incident.
+
+Incident records persist in local SQLite or owner-scoped cloud D1. Five required verification tasks must record named demonstration roles and evidence before an explicit self-recorded demonstration specialist review enables response work. Assignments, status changes, rejections, outcomes, revisions and draft exports retain the reasoning. Approval never verifies law or water quality; no notification is sent. Optimistic revisions prevent stale updates from silently overwriting a newer record.
+
+The historical Iskar flood demonstration remains available at **`/?module=flood`**. Its real discharge observations and synthetic scenarios retain their original distinctions.
 
 ### Quick start — Windows PowerShell
 
@@ -26,7 +30,7 @@ Open **http://127.0.0.1:8000**. Development: `npm run dev` and open **http://127
 
 ### Private Cloudflare hosting
 
-Cloud resources are deployed at **https://crisis2action.spunto-speak.workers.dev** and run independently of this PC. **Cloudflare Access is enabled and gateway identifiers are configured.** Unauthenticated requests redirect to the Cloudflare sign-in page. The app allowlist contains `francescogabrielg@gmail.com` and `517357835k@gmail.com`; users sign in with an email PIN. The owner has confirmed login works; the colleague has not yet confirmed their individual login.
+The existing cloud release is hosted at **https://crisis2action.spunto-speak.workers.dev** and runs independently of this PC. The report-aligned pollution navigator and browser pitch described here are local changes pending deployment; this URL must not be assumed to contain them yet. **Cloudflare Access is enabled and gateway identifiers are configured.** Unauthenticated requests redirect to the Cloudflare sign-in page. The app allowlist contains `francescogabrielg@gmail.com` and `517357835k@gmail.com`; users sign in with an email PIN. The owner has confirmed login works; the colleague has not yet confirmed their individual login.
 
 Follow the [hosting and Access setup guide](docs/CLOUDFLARE_SHARING.md) before sharing the app; it includes exact resources, deployment commands, tests and the administrator step. The Python backend has no public route, reviews use a separate D1 database, and original/private research inputs are excluded from public assets. [Deployment state and versions](cloud/deployment.json). The shared agent handoff also lives at `C:\Development\Repositories\README.md`.
 
@@ -45,6 +49,8 @@ The header language selector offers **English, Italiano, Русский and Бъ
 - [Validation and acceptance evidence](docs/VALIDATION.md)
 - [Private sharing with Cloudflare: verified account and setup options](docs/CLOUDFLARE_SHARING.md)
 
-Use Start guided demo to select Novi Iskar, 25 September 2025: 9.922 m3/s. The +8 m3/s/day, two-day synthetic scenario reaches 25.922 m3/s (WARNING → DANGER under the demo pack). Alternate thresholds change it to WARNING. No threshold activates a legal obligation. A review note and acknowledgement are required to download the unapproved draft.
+Use **New exercise** to create a repeatable pollution case, then follow the guided scenario. Complete the five verification tasks with specific evidence notes, record an acknowledged demonstration specialist review, assign response work and export the draft/history. All roles are self-declared and all incident measurements remain invented. The [demo script](docs/DEMO_SCRIPT.md) includes the retained flood journey.
+
+Open **`/presentation.html`** for the nine-slide Italian browser pitch; use arrow keys, speaker notes and print. Source files are `app/frontend/public/presentation.*`. Its economics and proposed customer study are hypotheses, not measured results. See [report alignment](docs/ALIAKSEI_ALIGNMENT.md) and [pollution data/legal audit](docs/POLLUTION_DATA_LEGAL_AUDIT.md). Qualified scientific, legal and jurisdiction review and actual customer interviews/pilot validation remain pending. Current check and release evidence belongs in [VALIDATION](docs/VALIDATION.md).
 
 Original datasets and the confidential event PDF remain local and unchanged, excluded from Git and frontend assets. Redistribution rights for original measurements are not established. Do not publish the source inputs or expose the local development ports.

@@ -4,6 +4,22 @@ Aggiornato il **24 ottobre 2026**. **Access attivo: il proprietario ha confermat
 
 ## Risorse effettive
 
+### Branch di allineamento del 25 ottobre 2026
+
+La nuova versione si trova in `feat/water-crisis-navigator-alignment`. Introduce il navigatore inquinamento come percorso principale e il pitch `/presentation.html`, conservando l'alluvione in `/?module=flood`. **Questa revisione è verificata localmente e non è ancora distribuita:** `cloud/deployment.json` descrive la precedente release pubblica. Il branch non modifica le policy Access o gli indirizzi ammessi.
+
+Per distribuirla dopo revisione, eseguire i controlli di [VALIDATION](VALIDATION.md), compilare il frontend, preparare il bundle e applicare la migrazione additiva `0002_incidents.sql` prima del nuovo backend:
+
+```powershell
+npm run build
+npm run cloud:prepare
+npm run cloud:migrate
+npm run cloud:deploy:backend
+npm run cloud:deploy:gateway
+```
+
+La migrazione crea i fascicoli incidenti separati per proprietario e non elimina i dati di revisione esistenti. Ripetere poi le prove backend/D1, percorso completo, isolamento fra utenti e redirect pubblico Access; aggiornare le versioni in `cloud/deployment.json` soltanto con risultati effettivi. I test locali di questa revisione non dimostrano il funzionamento del nuovo schema nel cloud. Per un rollback dell'app conservare la tabella additiva; non eliminare fascicoli o applicare downgrade distruttivi.
+
 | Risorsa | Valore verificato |
 | --- | --- |
 | Account | `b58b919c2f318c56b4634925d3f84ca9` |

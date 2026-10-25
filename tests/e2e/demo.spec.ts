@@ -7,7 +7,7 @@ test.beforeEach(async({context})=>{
 
 test('historical evidence → synthetic escalation → source review → draft export',async({page})=>{
  const errors:string[]=[];page.on('pageerror',error=>errors.push(error.message));
- await page.goto('/');
+ await page.goto('/?module=flood');
  await expect(page.getByRole('heading',{name:'Crisis Monitor',exact:true})).toBeVisible();
  await expect(page.locator('.signal-number')).toContainText('9.922');
  await expect(page.locator('.signal-panel .badge')).toContainText('WARNING');
@@ -66,7 +66,7 @@ test('historical evidence → synthetic escalation → source review → draft e
 });
 
 test('missing, stale and unavailable data never generate a forecast or safe classification',async({page})=>{
- await page.goto('/#scenario');
+ await page.goto('/?module=flood#scenario');
  await expect(page.locator('.scenario-comparison')).toContainText('9.922');
  await page.getByRole('button',{name:'Show a real missing day'}).click();
  await expect(page.locator('.scenario-grid')).toContainText('UNKNOWN · evidence is insufficient');
@@ -92,7 +92,7 @@ test('missing, stale and unavailable data never generate a forecast or safe clas
 });
 
 test('guided tour, screenshots, mobile layout and source protection',async({page,request})=>{
- await page.goto('/');
+ await page.goto('/?module=flood');
  await expect(page.locator('.signal-number')).toContainText('9.922');
  await page.screenshot({path:'test-results/overview-desktop.png',fullPage:true});
  await page.getByRole('button',{name:'Start guided demo',exact:true}).click();
@@ -114,7 +114,7 @@ test('guided tour, screenshots, mobile layout and source protection',async({page
 });
 
 test('complete guided tour and JSON export preserve review semantics',async({page})=>{
- await page.goto('/');
+ await page.goto('/?module=flood');
  await expect(page.locator('.signal-number')).toContainText('9.922');
  await page.getByRole('button',{name:'Start guided demo',exact:true}).click();
  for(let step=1;step<6;step++){
