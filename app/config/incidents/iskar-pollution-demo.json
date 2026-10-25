@@ -1,0 +1,403 @@
+{
+  "id": "iskar-pollution-demo",
+  "title": "Suspected river pollution: Iskar verification exercise",
+  "description": "Demonstration suspended-solids anomaly on a schematic short reach around Novi Iskar. All incident measurements, receptors and reach geometry are invented. Prepare a verification plan; the cause and real pollution status remain unconfirmed.",
+  "mode": "SIMULATED_DEMONSTRATION",
+  "waterbody": {
+    "name": "Iskar River ? illustrative Novi Iskar reach",
+    "country": "Bulgaria",
+    "reach_id": "DEMO-ISKAR-REACH",
+    "geometry_status": "DEMO_SYNTHETIC_SCHEMATIC",
+    "jurisdiction_status": "PENDING_EXPERT_CONFIRMATION",
+    "coordinates": null
+  },
+  "observation": {
+    "parameter": "total_suspended_solids",
+    "label": "Suspended solids",
+    "unit": "mg/L",
+    "baseline": 8,
+    "value": 96,
+    "ratio": 12,
+    "sample_id": "DEMO-TSS-003",
+    "station_id": "DEMO-REACH-CENTRE",
+    "observed_at": "2026-10-25T09:00:00+02:00",
+    "baseline_observed_at": "2026-10-24T09:00:00+02:00",
+    "mode": "SIMULATED_LAB_DEMONSTRATION",
+    "lab_confirmation": "NONE",
+    "confidence": "UNVERIFIED",
+    "source_classification": "DEMO_SYNTHETIC",
+    "threshold": 30,
+    "comparator": ">=",
+    "threshold_classification": "DEMO_CONFIG",
+    "threshold_note": "Invented anomaly display trigger only; not an environmental quality standard or statutory limit.",
+    "caveats": [
+      "Values and sample IDs are constructed; no laboratory report exists.",
+      "Suspended solids in mg/L are not turbidity NTU.",
+      "A concentration increase alone does not identify pollutant, source, toxicity or violation."
+    ]
+  },
+  "receptors": [
+    {
+      "id": "demo-intake",
+      "name": "Illustrative downstream abstraction point",
+      "type": "abstraction",
+      "x": 72,
+      "y": 60,
+      "source_classification": "DEMO_SYNTHETIC",
+      "impact": "POTENTIAL_EXPOSURE_UNVERIFIED",
+      "notes": "Invented schematic location; no real intake or affected operator asserted."
+    },
+    {
+      "id": "demo-habitat",
+      "name": "Illustrative downstream habitat",
+      "type": "habitat",
+      "x": 86,
+      "y": 76,
+      "source_classification": "DEMO_SYNTHETIC",
+      "impact": "POTENTIAL_EXPOSURE_UNVERIFIED",
+      "notes": "Invented receptor; no protected designation or actual impact asserted."
+    }
+  ],
+  "authorities": [
+    {
+      "id": "candidate-basin",
+      "name": "Danube Basin Directorate",
+      "role": "Candidate basin consultation route",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "institution_assignment": "NOT_ASSIGNED",
+      "jurisdiction_status": "PENDING_EXPERT_CONFIRMATION",
+      "source_ids": [
+        "moew-water",
+        "riew-iskar-case"
+      ]
+    },
+    {
+      "id": "candidate-inspectorate",
+      "name": "RIEW Sofia",
+      "role": "Candidate inspectorate consultation route",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "institution_assignment": "NOT_ASSIGNED",
+      "jurisdiction_status": "PENDING_EXPERT_CONFIRMATION",
+      "source_ids": [
+        "riew-iskar-case",
+        "riew-contact"
+      ]
+    }
+  ],
+  "legal_checks": [
+    {
+      "id": "check-provenance",
+      "title": "Check provenance and competing explanations",
+      "source_ids": [
+        "moew-natural-cause"
+      ],
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "notes": "Consider sediment mobilisation alongside a discharge hypothesis; no cause is established.",
+      "deadline_value": null,
+      "deadline_type": "NONE_VERIFIED",
+      "expert_review": "PENDING",
+      "statutory_claim": false
+    },
+    {
+      "id": "confirm-routing",
+      "title": "Confirm territorial routing",
+      "source_ids": [
+        "moew-water"
+      ],
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "notes": "Confirm the specific reach and current basin/inspectorate recipients before assigning real actions.",
+      "deadline_value": null,
+      "deadline_type": "NONE_VERIFIED",
+      "expert_review": "PENDING",
+      "statutory_claim": false
+    },
+    {
+      "id": "check-lab-method",
+      "title": "Review laboratory verification design",
+      "source_ids": [
+        "eu-lab-quality"
+      ],
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "notes": "Ask a qualified specialist to review methods, sample identity, custody, uncertainty and quality assurance.",
+      "deadline_value": null,
+      "deadline_type": "NONE_VERIFIED",
+      "expert_review": "PENDING",
+      "statutory_claim": false
+    },
+    {
+      "id": "check-notice",
+      "title": "Review notification draft and recipients",
+      "source_ids": [
+        "riew-contact"
+      ],
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "notes": "Prepare an evidence-linked draft; confirm recipients and applicable procedure before any real send.",
+      "deadline_value": null,
+      "deadline_type": "NONE_VERIFIED",
+      "expert_review": "PENDING",
+      "statutory_claim": false
+    },
+    {
+      "id": "review-results",
+      "title": "Review results and follow-up",
+      "source_ids": [
+        "riew-iskar-case"
+      ],
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "notes": "Specialist interpretation and manager approval remain pending; no enforcement power or violation is inferred.",
+      "deadline_value": null,
+      "deadline_type": "NONE_VERIFIED",
+      "expert_review": "PENDING",
+      "statutory_claim": false
+    }
+  ],
+  "sources": [
+    {
+      "id": "moew-water",
+      "title": "MOEW Water institutional overview",
+      "url": "https://www.moew.government.bg/en/water/",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "caveats": "Institutional overview only; current event competence and territorial routing require expert confirmation.",
+      "source_classification": "OFFICIAL_INSTITUTIONAL_SOURCE",
+      "section": "Water management institutional overview",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "riew-iskar-case",
+      "title": "RIEW Sofia: Kurilo/Iskar inspection, 13 May 2025",
+      "url": "https://riew-sofia.org/index.php/2014-02-03-21-15-52",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "caveats": "Historical case; Bulgarian paraphrase unreviewed. Does not establish a universal procedure, current duty or deadline.",
+      "source_classification": "OFFICIAL_HISTORICAL_CASE",
+      "section": "Item dated 13.05.2025 concerning Kurilo, Novi Iskar",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "moew-natural-cause",
+      "title": "MOEW: Iskar/Mezdra investigation, 25 June 2015",
+      "url": "https://www.moew.government.bg/bg/signal-za-zamursyavane-na-reka-iskur-v-rajona-na-mezdra-proveri-riosv-vraca/",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "caveats": "Historical natural-cause example, not evidence about this simulated incident.",
+      "source_classification": "OFFICIAL_HISTORICAL_CASE",
+      "section": "Inspection and laboratory sampling after rain-related earth movement",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "eu-lab-quality",
+      "title": "Commission Directive 2009/90/EC: analysis methods and laboratory quality",
+      "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32009L0090",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "caveats": "Official indexed text located; direct HTML/PDF retrieval blocked by anti-bot. Current consolidation, national implementation and event applicability unverified.",
+      "source_classification": "OFFICIAL_LEGISLATION_RESEARCH_LEAD",
+      "section": "Articles 3 and 6: methods of analysis; quality assurance and control",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "riew-contact",
+      "title": "RIEW Sofia official contact/reporting information",
+      "url": "https://www.riew-sofia.org/",
+      "verification": "SOURCE_LOCATED_UNREVIEWED",
+      "caveats": "Reconfirm current contact channel and territorial remit before a real notification. No automatic send.",
+      "source_classification": "OFFICIAL_INSTITUTIONAL_SOURCE",
+      "section": "Green-phone reporting information",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "local-tss-catalogue",
+      "title": "Anonymous historical Bulgarian suspended-solids observations",
+      "url": null,
+      "verification": "LOCAL_CONTENT_INSPECTED",
+      "caveats": "No station, location, sample ID, method or qualifiers; cannot be joined to this scenario.",
+      "source_classification": "HISTORICAL_ANONYMOUS_CHEMISTRY",
+      "path": "Dataset/surfacewater Bulgaria_weak/sostanze_sospese.csv",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    },
+    {
+      "id": "local-cds-context",
+      "title": "Local CDS precipitation geographic cells: 1?3 June 2024",
+      "url": null,
+      "verification": "LOCAL_CONTENT_INSPECTED",
+      "caveats": "Product acquisition/licence provenance and temporal aggregation not fully documented; separate historical context, not incident evidence.",
+      "source_classification": "HISTORICAL_GEOSPATIAL_CONTEXT",
+      "path": "Dataset/cds_output/precipitation/bulgaria_precipitazioni_2024-06-01_2024-06-03.csv",
+      "retrieved_at": "2026-10-25",
+      "reviewer": null,
+      "effective_date_from": null,
+      "effective_date_to": null
+    }
+  ],
+  "tasks": [
+    {
+      "id": "inspect-observation",
+      "title": "Inspect sample provenance and units",
+      "kind": "verification",
+      "required_for_review": true,
+      "evidence_required": true,
+      "proposed_owner_role": "Environmental analyst",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "local-tss-catalogue"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "check-confidence",
+      "title": "Review uncertainty and competing explanations",
+      "kind": "verification",
+      "required_for_review": true,
+      "evidence_required": true,
+      "proposed_owner_role": "Authorised technical specialist",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "moew-natural-cause"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "review-receptors",
+      "title": "Review the schematic receptors and exposure assumptions",
+      "kind": "verification",
+      "required_for_review": true,
+      "evidence_required": true,
+      "proposed_owner_role": "Environmental analyst",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "local-cds-context"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "review-jurisdiction",
+      "title": "Check candidate authority routing",
+      "kind": "verification",
+      "required_for_review": true,
+      "evidence_required": true,
+      "proposed_owner_role": "Authorised case coordinator",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "moew-water",
+        "riew-iskar-case"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "review-legal",
+      "title": "Review procedure sources and unresolved legal applicability",
+      "kind": "verification",
+      "required_for_review": true,
+      "evidence_required": true,
+      "proposed_owner_role": "Legal or regulatory specialist",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "eu-lab-quality",
+        "riew-contact"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "draft-sampling",
+      "title": "Draft a field and laboratory verification request",
+      "kind": "response",
+      "required_for_review": false,
+      "evidence_required": true,
+      "proposed_owner_role": "Laboratory liaison",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "eu-lab-quality"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "draft-notice",
+      "title": "Prepare an evidence-linked notification draft",
+      "kind": "response",
+      "required_for_review": false,
+      "evidence_required": true,
+      "proposed_owner_role": "Assigned case coordinator",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "riew-contact",
+        "riew-iskar-case"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    },
+    {
+      "id": "record-follow-up",
+      "title": "Record review outcome and follow-up plan",
+      "kind": "response",
+      "required_for_review": false,
+      "evidence_required": true,
+      "proposed_owner_role": "Approving manager",
+      "due_label": "No statutory deadline verified",
+      "source_ids": [
+        "riew-iskar-case"
+      ],
+      "institution_assignment": "NOT_ASSIGNED"
+    }
+  ],
+  "evidence": {
+    "historical_chemistry": {
+      "source_id": "local-tss-catalogue",
+      "parameter": "total_suspended_solids",
+      "unit": "mg/L",
+      "rows": 9657,
+      "period_start": "2019-01-03 10:50",
+      "period_end": "2024-12-16 16:30",
+      "median": 7.2,
+      "minimum": 2,
+      "maximum": 1998,
+      "repeated_timestamp_rows": 784,
+      "station_id": null,
+      "coordinates": null,
+      "event_join": false,
+      "sha256": "081e752084f0906b5e03f3f0e7cff8daf70ea3b8505e2f3b17fbb9b8c31aef4c"
+    },
+    "historical_geospatial_context": {
+      "source_id": "local-cds-context",
+      "rows": 1890,
+      "crs": "EPSG:4326",
+      "grid_degrees": 0.1,
+      "parameter": "tp",
+      "unit": "m",
+      "period_start": "2024-06-01",
+      "period_end": "2024-06-03",
+      "temporal_aggregation": "UNKNOWN",
+      "example_cell": {
+        "longitude": 23.4,
+        "latitude": 42.8,
+        "value": 0.035417404025793076
+      },
+      "event_join": false,
+      "role": "SEPARATE_HISTORICAL_CONTEXT_ONLY",
+      "sha256": "33330f47e017567b019839f2da77a1abedc0ac274cffb97ab7a22d343be2cf93"
+    }
+  },
+  "limitations": [
+    "This is a simulated exercise, not a current environmental alert.",
+    "No actual satellite observation, turbidity retrieval, pollutant identification or dispersion forecast is provided.",
+    "No real pollution confirmation, affected asset, source attribution or violation is established.",
+    "Historical anonymous chemistry and 2024 geographic context are not joined to this incident.",
+    "No statutory deadline, enforcement power or event jurisdiction has been professionally verified.",
+    "Legal and laboratory expert sign-off remains pending.",
+    "Task completion and approval record self-reported demonstration evidence only.",
+    "The app sends no notifications; response outputs remain drafts."
+  ]
+}
