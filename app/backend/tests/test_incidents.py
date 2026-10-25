@@ -238,3 +238,110 @@ def test_main_private_middleware_incident_boundary_and_owner_isolation(tmp_path,
     assert not (tmp_path / "no-cloud-fallback").exists()
     assert db.execute("SELECT owner_email FROM incidents").fetchone()[0] == "one@example.com"
     db.close()
+
+
+def approved_incident(client):
+    incident = create(client)
+    for task in incident["tasks"]:
+        if task["required_for_review"]:
+            incident = update(client, incident, task).json()
+    response = client.post(f"/api/incidents/{incident['id']}/review", json=review_body())
+    assert response.status_code == 200
+    return response.json()
+
+
+def test_rejected_response_requires_explicit_reset_and_renewed_review(client):
+    incident = approved_incident(client)
+    task = next(t for t in incident["tasks"] if t["kind"] == "response")
+    incident = update(client, incident, task, "rejected").json()
+    revision = incident["revision"]
+    for status in ["specialist_approved", "in_progress", "completed", "blocked"]:
+        assert update(client, incident, task, status).status_code == 409
+    path = f"/api/incidents/{incident['id']}"
+    assert client.get(path).json()["revision"] == revision
+    # Reset is an accountable reconsideration, never an implicit approval.
+    assert client.patch(path + f"/tasks/{task['id']}", json={"status": "system_suggested", "note": ""}).status_code == 422
+    incident = update(client, incident, task, "system_suggested").json()
+    assert incident["review_status"] == "pending"
+    assert update(client, incident, task, "in_progress").status_code == 409
+    incident = client.post(path + "/review", json=review_body()).json()
+    assert update(client, incident, task, "in_progress").status_code == 200
+
+
+def test_timeline_records_actual_mutation_revision_and_keeps_legacy_unknown(client):
+    incident = approved_incident(client)
+    assert incident["timeline"][0]["revision"] == 1
+    verification = next(t for t in incident["tasks"] if t["kind"] == "verification")
+    previous = incident["revision"]
+    incident = update(client, incident, verification, "blocked").json()
+    assert incident["revision"] == previous + 1
+    assert [event["kind"] for event in incident["timeline"][-2:]] == ["review_invalidated", "task_updated"]
+    assert all(event["revision"] == incident["revision"] for event in incident["timeline"][-2:])
+    # Simulate an existing persisted record created before event revisions existed.
+    store = incident_store.SQLiteIncidentStore()
+    with store.connect() as db:
+        incident["timeline"][0].pop("revision")
+        db.execute("UPDATE incidents SET snapshot=? WHERE id=?", (json.dumps(incident), incident["id"]))
+    exported = client.get(f"/api/incidents/{incident['id']}/export").json()
+    assert "revision not recorded" in exported["markdown"]
+    assert "revision" not in exported["incident"]["timeline"][0]
+
+
+def test_internal_target_persists_preserves_and_explicit_null_clears(client):
+    incident = create(client)
+    task = incident["tasks"][0]
+    assert task["internal_target_at"] is None
+    assert task["internal_target_classification"] == "USER_SET_DEMO_TARGET_NOT_STATUTORY"
+    path = f"/api/incidents/{incident['id']}"
+    body = {"status": "system_suggested", "note": "Set internal exercise target", "internal_target_at": "2026-10-26T12:30:00+02:00"}
+    response = client.patch(path + f"/tasks/{task['id']}", json=body)
+    assert response.status_code == 200, response.text
+    incident = response.json()
+    expected = "2026-10-26T12:30:00+02:00"
+    assert incident["tasks"][0]["internal_target_at"] == expected
+    incident = update(client, incident, task).json()
+    assert incident["tasks"][0]["internal_target_at"] == expected
+    assert client.get(path).json()["tasks"][0]["internal_target_at"] == expected
+    exported = client.get(path + "/export").json()
+    assert expected in exported["markdown"]
+    assert "USER_SET_DEMO_TARGET_NOT_STATUTORY" in exported["markdown"]
+    assert all(check["deadline_value"] is None for check in incident["scenario"]["legal_checks"])
+    incident = client.patch(path + f"/tasks/{task['id']}", json={**body, "internal_target_at": None}).json()
+    assert incident["tasks"][0]["internal_target_at"] is None
+    event = incident["timeline"][-1]
+    assert event["previous_internal_target_at"] == expected
+    assert event["internal_target_at"] is None
+    assert event["internal_target_classification"] == "USER_SET_DEMO_TARGET_NOT_STATUTORY"
+
+
+@pytest.mark.parametrize("target", ["2026-10-26T12:30:00", "2026-10-26", "not-a-date", "2026-13-50T25:00:00Z"])
+def test_internal_target_requires_valid_timezone_aware_datetime(client, target):
+    incident = create(client)
+    task = incident["tasks"][0]
+    response = client.patch(f"/api/incidents/{incident['id']}/tasks/{task['id']}", json={
+        "status": "system_suggested", "note": "Invalid date must not persist", "internal_target_at": target})
+    assert response.status_code == 422
+    assert client.get(f"/api/incidents/{incident['id']}").json()["revision"] == 1
+
+
+def test_markdown_draft_preserves_evidence_review_and_outcome(client):
+    incident = approved_incident(client)
+    path = f"/api/incidents/{incident['id']}"
+    incident = client.post(path + "/outcome", json={"status": "closed_unconfirmed", "note": "Laboratory evidence absent; retain uncertainty."}).json()
+    exported = client.get(path + "/export").json()
+    markdown = exported["markdown"]
+    observation = incident["scenario"]["observation"]
+    for value in [observation["unit"], observation["observed_at"], observation["baseline_observed_at"],
+                  observation["mode"], observation["sample_id"], "DEMO_CONFIG", "UNVERIFIED",
+                  "PENDING_EXPERT_CONFIRMATION", "SOURCE_LOCATED_UNREVIEWED", "NONE_VERIFIED",
+                  "Demo reviewer", "Technical reviewer", review_body()["note"],
+                  "Laboratory evidence absent; retain uncertainty.", "pollution_confirmed", "legal_violation_established"]:
+        assert value in markdown
+    for collection in ["receptors", "authorities", "legal_checks", "sources"]:
+        for item in incident["scenario"][collection]:
+            assert item["id"] in markdown
+    assert '"value": 96.0' in markdown
+    assert '"threshold": 30.0' in markdown
+    assert exported["incident"] == incident
+    assert exported["official_authorization"] is False
+    assert "no verified statutory duties" in markdown

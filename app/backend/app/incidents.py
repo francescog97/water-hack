@@ -8,7 +8,7 @@ from uuid import uuid4
 from urllib.parse import urlsplit
 
 from fastapi import APIRouter, HTTPException, Request
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
 
 from .incident_store import RevisionConflict, SQLiteIncidentStore
 from .paths import CONFIG
@@ -35,6 +35,7 @@ class TaskMutation(Mutation):
     status: Literal["system_suggested", "specialist_approved", "in_progress", "completed", "rejected", "blocked"]
     assignee_name: str | None = Field(default=None, min_length=2, max_length=120)
     assignee_role: str | None = Field(default=None, min_length=2, max_length=120)
+    internal_target_at: AwareDatetime | None = None
 
 
 class ReviewMutation(Mutation):
@@ -167,6 +168,7 @@ def check_revision(incident, mutation):
 
 def timeline(incident, kind, note, **details):
     incident["timeline"].append({"id": uuid4().hex, "at": now(), "kind": kind,
+                                 "revision": incident["revision"] if kind == "incident_created" else incident["revision"] + 1,
                                  "note": note, "actor": "LOCAL_DEMO_USER" if incident["identity_mode"] == "LOCAL_DEMO" else "AUTHENTICATED_WORKSPACE_OWNER",
                                  "demonstration_only": True, **details})
 
@@ -203,7 +205,9 @@ async def create(request: Request, body: CreateIncident = CreateIncident()):
                 "dispatch_available": False, "institution_assignment": "NOT_ASSIGNED",
                 "notice": DEMO_NOTICE, "reviews": [], "timeline": [], "outcome": None,
                 "tasks": [{**task, "status": "system_suggested", "assignee_name": None,
-                           "assignee_role": None, "note": None, "evidence_status": "NOT_RECORDED"}
+                           "assignee_role": None, "note": None, "evidence_status": "NOT_RECORDED",
+                           "internal_target_at": None,
+                           "internal_target_classification": "USER_SET_DEMO_TARGET_NOT_STATUTORY"}
                           for task in scenario["tasks"]]}
     timeline(incident, "incident_created", "Opened hypothetical anomaly for verification; no pollution confirmed.")
     return await store_for(request).create(incident)
@@ -228,6 +232,8 @@ async def update_task(incident_id: str, task_id: str, body: TaskMutation, reques
     task = next((t for t in incident["tasks"] if t["id"] == task_id), None)
     if task is None:
         raise HTTPException(404, "Task not found")
+    if task["status"] == "rejected" and body.status not in {"rejected", "system_suggested"}:
+        raise HTTPException(409, "Reset the rejected task to system_suggested with a reason before progressing")
     if task["kind"] == "response" and body.status in {"specialist_approved", "in_progress", "completed"} and incident["review_status"] != "demo_approved":
         raise HTTPException(409, "Response tasks require a current demo technical review")
     assignee_name = body.assignee_name or task["assignee_name"]
@@ -235,15 +241,24 @@ async def update_task(incident_id: str, task_id: str, body: TaskMutation, reques
     if body.status in {"specialist_approved", "in_progress", "completed"} and not (assignee_name and assignee_role):
         raise HTTPException(422, "Record a demo task owner name and role")
     previous_status = task["status"]
+    previous_target = task.get("internal_target_at")
+    internal_target = previous_target
+    if "internal_target_at" in body.model_fields_set:
+        internal_target = body.internal_target_at.isoformat() if body.internal_target_at is not None else None
     task.update(status=body.status, assignee_name=assignee_name, assignee_role=assignee_role,
                 note=body.note, updated_at=now(), institution_assignment="NOT_ASSIGNED",
+                internal_target_at=internal_target,
+                internal_target_classification="USER_SET_DEMO_TARGET_NOT_STATUTORY",
                 evidence_status="SELF_RECORDED_DEMO_CHECK" if body.status == "completed" else "NOT_RECORDED")
-    if task["kind"] == "verification" and incident["review_status"] == "demo_approved":
+    reset_rejected = previous_status == "rejected" and body.status == "system_suggested"
+    if (task["kind"] == "verification" or reset_rejected) and incident["review_status"] == "demo_approved":
         incident["review_status"] = "pending"
         incident["status"] = "verification_required"
-        timeline(incident, "review_invalidated", "Verification task changed; repeat the demonstration review.")
+        timeline(incident, "review_invalidated", "Verification changed or rejected task reconsidered; repeat the demonstration review.")
     timeline(incident, "task_updated", body.note, task_id=task_id, previous_status=previous_status,
-             status=body.status, assignee_name=assignee_name, assignee_role=assignee_role)
+             status=body.status, assignee_name=assignee_name, assignee_role=assignee_role,
+             previous_internal_target_at=previous_target, internal_target_at=internal_target,
+             internal_target_classification="USER_SET_DEMO_TARGET_NOT_STATUTORY")
     return await save(store, incident)
 
 
@@ -286,13 +301,30 @@ async def outcome(incident_id: str, body: OutcomeMutation, request: Request):
 @router.get("/{incident_id}/export")
 async def export(incident_id: str, request: Request):
     incident = await get_incident(store_for(request), incident_id)
+    scenario = incident["scenario"]
     lines = [f"# {incident['id']} — demonstration incident record", "", DEMO_NOTICE, "",
              f"Scenario: {incident['scenario']['title']}", f"Status: {incident['status']}",
              f"Technical review: {incident['review_status']}", f"Finding: {incident['finding_status']}",
-             f"Scenario SHA-256: {incident['scenario']['content_sha256']}", "", "## Tasks"]
-    lines.extend(f"- {t['title']}: {t['status']}; demo owner: {t['assignee_name'] or 'unassigned'} ({t['assignee_role'] or t['proposed_owner_role']}); institution NOT_ASSIGNED. Note: {t['note'] or 'none'}" for t in incident["tasks"])
+             f"Scenario SHA-256: {scenario['content_sha256']}", f"Incident revision: {incident['revision']}"]
+    # Preserve complete evidence fields rather than silently dropping provenance,
+    # uncertainty or future additions from the human-readable principal export.
+    def evidence_section(title, value):
+        lines.extend(["", f"## {title}", "", "```json", json.dumps(value, ensure_ascii=False, indent=2), "```"])
+
+    evidence_section("Observation — constructed sample; demo trigger is not a statutory limit", scenario["observation"])
+    evidence_section("Location — illustrative geometry and unconfirmed jurisdiction", scenario["waterbody"])
+    evidence_section("Evidence provenance — historical context is not joined to this incident", scenario.get("evidence", {}))
+    evidence_section("Uncertainty and limitations — no pollution or violation established", scenario.get("limitations", []))
+    evidence_section("Potential receptors — illustrative; exposure unverified; no propagation forecast", scenario.get("receptors", []))
+    evidence_section("Candidate institutions — competence unconfirmed; no official assignment", scenario.get("authorities", []))
+    evidence_section("Legal and procedural checks — pending qualified review; no verified statutory duties", scenario.get("legal_checks", []))
+    lines.extend(["", "## Tasks — internal user-set targets are not statutory deadlines"])
+    lines.extend(f"- {t['title']}: {t['status']}; demo owner: {t['assignee_name'] or 'unassigned'} ({t['assignee_role'] or t['proposed_owner_role']}); institution NOT_ASSIGNED. Internal target: {t.get('internal_target_at') or 'not set'} (USER_SET_DEMO_TARGET_NOT_STATUTORY). Source deadline status: {t['due_label']}. Note: {t['note'] or 'none'}" for t in incident["tasks"])
+    evidence_section("Review history — self-declared demonstration reviewers; no official authorization", incident["reviews"])
+    evidence_section("Recorded outcome — demonstration only; pollution remains unconfirmed", incident["outcome"])
     lines.extend(["", "## Timeline"])
-    lines.extend(f"- {event['at']} {event['kind']}: {event['note']}" for event in incident["timeline"])
-    lines.extend(["", "## Source references", json.dumps(incident["scenario"].get("sources", []), ensure_ascii=False, indent=2)])
+    lines.extend(f"- {event['at']} · revision {event.get('revision', 'not recorded')} · {event['kind']}: {event['note']}" for event in incident["timeline"])
+    evidence_section("Full timeline evidence", incident["timeline"])
+    evidence_section("Source references and provenance — links do not certify applicability", scenario.get("sources", []))
     return {"incident": incident, "markdown": "\n".join(lines), "official_authorization": False,
             "dispatch_available": False}
