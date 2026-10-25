@@ -1,6 +1,45 @@
-# Reproducible demonstration
+# Reproducible pollution navigator demonstration
 
-Run the production build locally at http://127.0.0.1:8000. The Start guided demo button resets the exact case/config below. Live feed and forecast are unavailable by design.
+Build and run locally using [RUN_LOCAL](RUN_LOCAL.md), then open http://127.0.0.1:8000. The default is **Water Crisis Decision Navigator**. The existing protected cloud URL may still serve the previous release until this work is deployed; consult [VALIDATION](VALIDATION.md) for current evidence.
+
+## Reset and prepare
+
+Select English for the labels below, or switch to Italiano, Русский or Български. Choose **New exercise** to create a fresh persistent incident for each rehearsal; earlier records/history remain retained. If no incident exists, choose **Start incident record**. Record the new incident identity so exports can be matched to it. These are self-declared demonstration personas, not institutionally verified identities.
+
+## 90-second product story
+
+| Time | Action | Say / verify |
+|---|---|---|
+| 0–15 s | Observation & evidence | Invented suspended solids increase from 8 to 96 mg/L: 12×. The 30 mg/L `>=` trigger is a demo setting, not an environmental quality standard. There is no actual laboratory report, contaminant identification or confirmed pollution. |
+| 15–28 s | Potential receptors | All geometry and intake, habitat, settlement and industry markers are invented. Downstream relation/exposure need independent verification; no arrival time or dispersion forecast exists. |
+| 28–43 s | Institutions & legal checks; open a source | Danube Basin Directorate and RIEW Sofia are candidate routes. Five source-backed procedure checks remain unreviewed. A source link does not establish jurisdiction, a duty or a deadline. |
+| 43–70 s | Action plan & history | Show the five required verification tasks, named roles and evidence notes. Explain the explicit demonstration specialist review gate, assigned response tasks and traceable revisions. Use the prepared rehearsal record below if time is limited. |
+| 70–90 s | Export; Pilot & value | Download the draft and full evidence JSON; nothing is sent. Show buyer/user/budget roles, assumption-based economics and the proposed equivalent-task customer test. No customer study or paid pilot is claimed. |
+
+The real 9,657-row anonymous historical TSS file and 2024 CDS cells are separate context, without a station/time join to this exercise. Suspended solids in mg/L are not turbidity in NTU or a PFAS result.
+
+## Full repeatable workflow / rehearsal record
+
+1. Start a fresh exercise. In **Action plan & history**, open each of the five required verification tasks: sample provenance/units; uncertainty/alternative explanations; receptors/exposure; candidate authority routing; procedure sources/legal applicability.
+2. For each task, enter a demonstration assignee and explicit demo role, choose **completed**, and save a specific evidence note. Example: “Demo Analyst / Environmental analyst — demo role. Checked synthetic sample ID and mg/L; no laboratory report or station-matched field evidence exists.” Adapt each note to the task; retain unresolved gaps. These are self-reported checks, not proof that external evidence has been obtained.
+3. Before review, show that response progression requires specialist approval. Enter a reviewer name, simulated role and reason of at least five characters; acknowledge the demo-role disclosure. Choose **Approve demonstration plan**. Explain that this records a simulated review only and leaves source/legal/pollution verification unchanged. **Request changes with reason** demonstrates a reasoned return for further work.
+4. Open a response task, assign an owner and role, record a specific note, then move through specialist-approved / in progress / completed as appropriate. Demonstrate **rejected** with a reason on another task; no external laboratory work or delivery is implied by these statuses.
+   An optional internal target can be entered and cleared; it is never a statutory deadline. To reconsider a rejected task, explicitly reset it to **system suggested** with a reason; this revokes the previous approval and requires a new demo review before response execution.
+5. Record an outcome note and **Continue monitoring**, or **Close as unconfirmed**. Inspect the ordered timeline, actors, revisions and reasons. Refresh and verify the same incident and recorded state return. Stale revisions require refreshing rather than overwriting newer work.
+6. Download the Markdown draft and full evidence JSON. Match the incident identity/revision, verification/review state, assignments and timeline. Exports retain original evidence language and limitations. No notice is sent and no official authorization appears.
+7. For a gate-reset demonstration, edit a required verification after approval: the previous demo approval is revoked, and response work requires a new review. Use **New exercise** again before the next rehearsal; do not erase prior history to reset the demo.
+
+## Pitch and presentation backup
+
+Open **http://127.0.0.1:8000/presentation.html** for the nine-slide Italian browser pitch. Navigate with arrow keys, show speaker notes and use print for a paper/PDF backup. The source is `app/frontend/public/presentation.*`. Match visible functionality to the local build; do not imply the current public release has already been updated. Qualified legal/scientific sign-off, current jurisdiction and permits, actual interviews and a measured customer pilot remain pending.
+
+Keep synthetic labels and source limitations visible in screenshots. The app works locally after setup; opening original external sources requires a connection. Never include the confidential event PDF in captures or public assets.
+
+---
+
+# Retained historical flood demonstration
+
+Open http://127.0.0.1:8000/?module=flood after the production build. The Start guided demo button resets the exact case/config below. Live feed and forecast are unavailable by design.
 
 ## 90 seconds
 

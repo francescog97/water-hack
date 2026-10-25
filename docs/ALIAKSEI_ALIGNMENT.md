@@ -93,3 +93,11 @@ Fallbacks enable an honest end-to-end software demonstration. They do not erase 
 7. Recheck original-input hashes, including the report. Record actual validation and any unresolved expert/customer evidence in the review handoff. Keep GitHub issue open in Review until user approval.
 
 This audit does not certify legislation, satellite science, water quality, jurisdiction, regulatory compliance or customer demand. Those findings require the domain and organisational evidence identified above.
+
+## Implemented demonstrator and remaining acceptance — 25 October 2026
+
+The implementation now supplies the pollution-first five-view navigator, four-language controls, explicit synthetic/context-only provenance, four illustrative receptor types, five source-linked pending procedure checks, persistent owner-scoped incidents, guarded named task/review/rejection/outcome workflow, optional internal targets, true revision history and complete draft/JSON export. The original historical flood/config-swapping module remains available. Pilot/value includes buyer roles, cautious competitor comparison, all three economic illustrations including the negative insurer result, startup contribution arithmetic and empty self-reported comparison fields. The Italian nine-slide browser presentation and speaker notes are in `app/frontend/public/presentation.*`.
+
+Actual local checks: **93 backend tests, 12 browser tests, 3 gateway security tests**, frontend build/lint/typecheck, gateway typecheck and unchanged 172 input hashes plus DOCX hash. [VALIDATION](VALIDATION.md) records checks, fixes and their limits. All work is on `feat/water-crisis-navigator-alignment`; the public app remains the previous deployment.
+
+**M07 is externally pending:** the five source checks are not 3–5 professionally verified applicable legal procedures. M02/M04's real event evidence/geography, M06's qualified competence confirmation and B08/B09's actual customer interviews/comparable-task study also remain external validation gaps. The implemented fallback is a clearly simulated hackathon journey and a proposed validation protocol; it is not full operational/legal acceptance. Do not infer that passing software tests meets these external criteria.

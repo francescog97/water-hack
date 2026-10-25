@@ -51,7 +51,7 @@ class Default(WorkerEntrypoint):
         return await asgi.fetch(app, request, self.env, self.ctx)
 ''', encoding="utf-8")
     manifest = {name: hashlib.sha256(content.encode("utf-8")).hexdigest() for name, content in files.items()}
-    (ROOT / "cloud/data-manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (ROOT / "cloud/data-manifest.json").write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(f"Prepared {len(BACKEND_MODULES)} Python modules and {len(files)} explicit data/config inputs; no research-directory upload.")
 
 

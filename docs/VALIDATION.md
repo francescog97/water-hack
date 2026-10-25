@@ -1,8 +1,34 @@
-# Final acceptance evidence — 24 October 2026
+# Acceptance evidence — updated 25 October 2026
 
 This records checks actually executed against the implementation, not intended future work. Tests establish software behavior and input integrity; they do not establish forecast accuracy, legal validity, customer value or operational readiness.
 
-## Executed checks
+## Report-alignment branch — 25 October 2026, 12:36 UTC
+
+Branch: `feat/water-crisis-navigator-alignment`, based on unchanged `main` commit `ef3c636`. This is a locally verified hackathon demonstrator. The existing Cloudflare deployment remains the previous release; this branch has not been deployed or merged.
+
+| Actual check | Result |
+|---|---|
+| `npm run test:backend` | **93 passed**; includes SQLite/D1-adapter owner isolation, real main middleware boundary, atomic revisions, rejected-task reset/reapproval, same-mutation timeline revisions, evidence-rich export, aware optional internal targets, invalid/missing scenario fail-closed and original hashes |
+| `npm run test:e2e` | **12 passed** in Microsoft Edge: six retained flood/language checks, two economics/comparison checks and four pollution/presentation/language/failure checks |
+| Frontend | Typecheck, lint and production build passed; legacy flood module loads separately |
+| Gateway | Typecheck and **3 security tests passed**; authentication/policy unchanged |
+| `npm run audit:data` | **172 original file hashes matched**, both historical Iskar adapters usable, no input modifications |
+| DOCX integrity | SHA-256 remains `4003771c60a88b8d319e3287993f03b7108c971c5bc894e620d76ffd1140d2d0` |
+| Catalog integrity | All previous locale entries preserved: IT 324, RU 324, BG 325. Current totals IT 743, RU 749, BG 746; UTF-8 JSON parses without replacement characters |
+| Bundle preparation | 13 explicit backend modules and 7 selected data/config inputs; research tree and confidential inputs excluded |
+| Visual inspection | Actual desktop workflow, 390px mobile navigator and Italian economics slide screenshots inspected; no horizontal overflow in relevant browser checks |
+
+The new end-to-end browser run creates a fresh exercise, inspects the constructed 96 mg/L sample and four schematic receptors, opens original source provenance, completes five named demo checks, records explicit demo approval, assigns/completes/rejects response tasks, records an internal target, closes unconfirmed, exports JSON and reloads persisted state. Export assertions retain no official authorization/dispatch and an unconfirmed finding. Backend tests additionally verify complete Markdown evidence, rejection-reset gates and legal/source flags.
+
+The economics checks retain the insurer's negative €5,000 illustration and reject invalid assumptions. Customer-comparison inputs start empty; entered values export as self-reported, not as independently measured pilot evidence. The Italian nine-slide browser pitch supports keyboard navigation, notes and mobile display. Screenshots, traces and JSON results are local ignored test artifacts under `test-results/`.
+
+Initial browser checks exposed numeric sidebar suffixes in accessible button names and same-document pitch hash navigation; both were fixed before the complete 12-test passing run. Independent review found four workflow/evidence issues, fixed with backend regression tests. Restricted Windows subprocess execution initially returned EPERM for Vite/test runners; authorized local execution resolved it. Remaining non-failing diagnostics: a roughly 550 kB initial JS chunk warning and one Starlette/httpx test-client deprecation warning.
+
+**External gaps remain open:** no professionally verified event-specific Bulgarian legal package, confirmed jurisdiction/permits, actual incident sample, satellite retrieval, validated dispersion forecast, customer interview or measured customer pilot. Five source-backed procedure checks are research leads. Completing a demo task/review does not close these gaps. Operational legal acceptance M07 remains pending; the complete software demonstration uses the truthful fallback specified in the alignment audit. Current claim-source checks and retrieval limits are in [HACKATHON_STORY](HACKATHON_STORY.md).
+
+New cloud schema/API acceptance is local/adapter-tested only. A future release must apply additive migration `0002_incidents.sql`, deploy backend and gateway, then retest actual D1, owner isolation, browser workflow and public Access redirects. Prior production evidence below is historical, not proof of deploying this branch.
+
+## Historical checks — 24 October 2026
 
 | Command / check | Observed result |
 |---|---|
